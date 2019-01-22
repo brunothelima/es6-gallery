@@ -1,0 +1,13 @@
+.gallery {
+	width: 600px;
+	margin: auto;
+}
+.gallery .gallery__lens {
+	display: flex;	
+}
+.gallery .gallery__lens .gallery__item {
+	display: none;
+}
+.gallery .gallery__lens .gallery__item.gallery__item--active {
+	display: block;
+}
