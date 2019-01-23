@@ -1,15 +1,8 @@
-<!DOCTYPE />
+<!DOCTYPE>
 <html>
 	<head>
+		<title>ES6 - Gallery</title>
 		<link rel="stylesheet" href="css/main.css">
-		<style>
-			body {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 100%;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="gallery">
@@ -18,6 +11,9 @@
 			<img src="https://picsum.photos/400/400?image=12" />
 			<img src="https://picsum.photos/200/400?image=13" />
 		</div>
-		<script src="js/main.js" type="module"></script>
+		<script type="module">
+			import {Gallery} from './js/Gallery.js';
+			const gallery = new Gallery('#gallery');
+		</script>
 	</body>
 </html>
