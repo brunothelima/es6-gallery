@@ -92,7 +92,7 @@ export class Gallery extends Component {
 		Used as callback for the galler__index buttom @click event
 	*/
 	goTo(index) {
-		this.currentIndex = index - 1;
+		this.currentIndex = index;
 	}
 	/*
 		Set the next element to be displayed
@@ -125,7 +125,7 @@ export class Gallery extends Component {
 		// Set _lens reference to the new rendered gallery__lens
 		this.$lens = document.querySelector('.gallery__lens');
 		// Set _items as new gallery__items rendered
-		this._items = Array.from(this.$lens.children);
+		this._items = [...this.$lens.children];
 	}
 	/*
 		Render gallery__controlls element into the component;
@@ -149,7 +149,7 @@ export class Gallery extends Component {
 		// Set _controlls as reference for the updated gallery__controlls element
 		this.$controlls = document.querySelector('.gallery__controlls');
 		// Extract $controlls buttons as iterable $controlls children.
-		this._bullets = Array.from(this.$controlls.children)
+		this._bullets = [...this.$controlls.children];
 		// Remove gallery__prev button from _bullets iterable, Set $prev as the its reference
 		this.$prev = this._bullets.shift();
 		// Bind $prev click event to the prev() method
@@ -162,8 +162,8 @@ export class Gallery extends Component {
 			Iterates over _bullets;
 			Bind click event for each bullet element
 		*/
-		for(const item of this._bullets) {
-			item.addEventListener('click', event => this.goTo(event.target.innerText));
+		for(const [index, item] of this._bullets.entries()) {
+			item.addEventListener('click', event => this.goTo(index));
 		}
 		/*
 			Set _curr as the last active item before the render
@@ -174,16 +174,16 @@ export class Gallery extends Component {
 			Observer object for $lens element
 			Update the component html on any update on gallery__lens content
 		*/
-		const obs = new MutationObserver((mutations, observer) => {
+		const mo = new MutationObserver((mutations, observer) => {
 			// Disconnects the observer to prevent infinite loop
 			observer.disconnect();
 			// Update _items with new/deleted content
-			this._items = Array.from(this.$lens.children);
+			this._items = [...this.$lens.children];
 			// Re-render the component view
 			this.render(); 
 		});
 		// Initialize $lens obervation
-		obs.observe(this.$lens, {childList: true});
+		mo.observe(this.$lens, {childList: true});
 	}
 	/*
 		Updates the component html
