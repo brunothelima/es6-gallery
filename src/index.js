@@ -4,13 +4,13 @@ import './style.scss';
 	Creates an slider of elements with pagination and controlls
 */
 export class Gallery {
-  /*
+	/*
 		Gallery component contructor
 		Inherit $element from Component class
   */
 	constructor(target) {
 		this._curr = 0; // Current visible item index 
-		this._items = [] // Itens to display iterable
+		this._items = []; // Itens to display iterable
 		this._bullets; // Will become gallery__index iterable
 		this.$lens; // Will become gallery__lens element reference
 		this.$controlls; // Will become gallery__controlls element reference
@@ -27,17 +27,16 @@ export class Gallery {
 		try {
 			if (target instanceof HTMLElement) {
 				return target;
-			} else if ((typeof target === 'string' || target instanceof String) 
-				&& target.match('(#|.).*')) {
-					// Checks if the element reference exists
-					if (document.querySelector(target)) {
-						return document.querySelector(target);
-					} else {
-						// Throw error if the selector match is undefined
-						throw new Error(`The selector '${target}' has no element match.`);
-					}
+			} else if ((typeof target === 'string' || target instanceof String) && target.match('(#|.).*')) {
+				// Checks if the element reference exists
+				if (document.querySelector(target)) {
+					return document.querySelector(target);
+				} else {
+					// Throw error if the selector match is undefined
+					throw new Error(`The selector '${target}' has no element match.`);
+				}
 			} else {
-				throw new Error('Invalid initialization selector/element')
+				throw new Error('Invalid initialization selector/element');
 			}
 		} catch(error) {
 			alert(error);
@@ -108,14 +107,20 @@ export class Gallery {
 		// Remove the current rendered gallery__lens element
 		if (this.$lens) this.$lens.remove();
 		// Insert gallery__lens html into the component
-		this.$element.insertAdjacentHTML('afterbegin',`
+
+		const html = `
 			<div class="gallery__lens">
-				${ this._items.map((item, index) => {  // Iteration over _items, render each item html into gallery__lens
-					// Retrive innerHTML for allread rendered elements and outerHTML for new elements
+				${this._items.map(item => {  
+					/*
+						Iteration over _items, render each item html into gallery__lens
+						Retrive innerHTML for allread rendered elements and outerHTML for new elements
+					*/
 					const html = (item.className.includes('gallery__item')) ? item.innerHTML : item.outerHTML;
 					return `<div class="gallery__item">${html}</div>`;
 				}).join('')}
-			</div>`);
+			</div>`;
+
+		this.$element.insertAdjacentHTML('afterbegin', html);
 		// Set _lens reference to the new rendered gallery__lens
 		this.$lens = document.querySelector('.gallery__lens');
 		// Set _items as new gallery__items rendered
