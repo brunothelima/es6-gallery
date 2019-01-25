@@ -1,46 +1,14 @@
-
-export class Element {
-	/*
-		Component class contructor
-  */
-	constructor(element) {
-		this.$element = this.extractElement(element);
-	}
-	extractElement(reference) {
-		let element;
-		// Try to get a DOM reference of the el argument if it is a String
-		try {
-			if (reference instanceof HTMLElement) {
-				element = reference;
-			} else if ((typeof reference === 'string' || reference instanceof String) 
-				&& reference.match('(#|.).*')) {
-					// Checks if the element reference exists
-					if (document.querySelector(reference)) {
-						element = document.querySelector(reference);
-					} else {
-						// Throw error if the selector match is undefined
-						throw new Error(`The selector '${reference}' has no element match.`);
-					}
-			} else {
-				throw new Error('Invalid initialization selector/element')
-			}
-		} catch(error) {
-			alert(error);
-		}
-		return element;
-	}
-}
+import './style.scss';
 /*
 	Gallery Component;
 	Creates an slider of elements with pagination and controlls
 */
-export class Gallery extends Element {
+export class Gallery {
   /*
 		Gallery component contructor
 		Inherit $element from Component class
   */
-	constructor(element) {
-		super(element);
+	constructor(target) {
 		this._curr = 0; // Current visible item index 
 		this._items = [] // Itens to display iterable
 		this._bullets; // Will become gallery__index iterable
@@ -48,7 +16,33 @@ export class Gallery extends Element {
 		this.$controlls; // Will become gallery__controlls element reference
 		this.$prev; // Will become gallery__prev element reference
 		this.$next; // Will become gallery__next reference
+		this.$element = this.extractElement(target);
 		this.init();
+	}
+	/*
+		Validate the existence of the element and
+		returns the element reference
+	*/
+	extractElement(target) {
+		try {
+			if (target instanceof HTMLElement) {
+				return target;
+			} else if ((typeof target === 'string' || target instanceof String) 
+				&& target.match('(#|.).*')) {
+					// Checks if the element reference exists
+					if (document.querySelector(target)) {
+						return document.querySelector(target);
+					} else {
+						// Throw error if the selector match is undefined
+						throw new Error(`The selector '${target}' has no element match.`);
+					}
+			} else {
+				throw new Error('Invalid initialization selector/element')
+			}
+		} catch(error) {
+			alert(error);
+		}
+		return undefined;
 	}
 	/*
 		Getter for total items entries
@@ -208,3 +202,11 @@ export class Gallery extends Element {
 		this.render();
 	}
 }
+
+const gallery = new Gallery('#gallery');
+const img = new Image();
+img.src = 'https://picsum.photos/200/400?image=14';
+setTimeout(function() {
+	document.querySelector('.gallery__lens')
+		.appendChild(img);
+}, 5000);
