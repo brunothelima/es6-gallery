@@ -3,6 +3,7 @@
 	--height: 300px;
 	--gutter: 8px;
 	--speed: 150ms;
+	overflow: hidden;
 	width: var(--width);
 	margin: auto;
 	&:not(.gallery--active) > * {

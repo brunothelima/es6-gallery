@@ -3,7 +3,7 @@ import './style.scss';
 	Gallery Component;
 	Creates an slider of elements with pagination and controlls
 */
-export class Gallery {
+export default class {
 	/*
 		Gallery component contructor
 		Inherit $element from Component class
@@ -152,17 +152,17 @@ export class Gallery {
 		// Remove gallery__prev button from _bullets iterable, Set $prev as the its reference
 		this.$prev = this._bullets.shift();
 		// Bind $prev click event to the prev() method
-		this.$prev.addEventListener('click', _ => this.prev());
+		this.$prev.addEventListener('click', () => this.prev());
 		// Remove gallery__next button from _bullets iterable, Set $next as the its reference
 		this.$next = this._bullets.pop();
 		// Bind $next click event to the next() method
-		this.$next.addEventListener('click', _ => this.next());
+		this.$next.addEventListener('click', () => this.next());
 		/*
 			Iterates over _bullets;
 			Bind click event for each bullet element
 		*/
 		for(const [index, item] of this._bullets.entries()) {
-			item.addEventListener('click', event => this.goTo(index));
+			item.addEventListener('click', () => this.goTo(index));
 		}
 		/*
 			Set _curr as the last active item before the render
@@ -196,22 +196,14 @@ export class Gallery {
 		Render $lens and controlls 
 	*/
 	init() {
+		// Adds style and activation classes to the component
+		this.$element.classList.add('gallery','gallery--active');
 		// Set _items as iterable of elements in the component target element
 		this._items = Array.from(this.$element.children);
 		while(this.$element.firstChild) {
 			this.$element.removeChild(this.$element.firstChild);
 		}
-		// Adds style and activation classes to the component
-		this.$element.classList.add('gallery','gallery--active');
 		// Transfers the child components to gallery__lens wrapper
 		this.render();
 	}
 }
-
-const gallery = new Gallery('#gallery');
-const img = new Image();
-img.src = 'https://picsum.photos/200/400?image=14';
-setTimeout(function() {
-	document.querySelector('.gallery__lens')
-		.appendChild(img);
-}, 5000);

@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html>
+	<head leng="en">
+		<title>ES6 - Gallery</title>
+	</head>
+	<body>
+		<div id="gallery">
+			<img src="https://picsum.photos/600/300?image=10" />
+			<img src="https://picsum.photos/300/500?image=11" />
+			<img src="https://picsum.photos/400/400?image=12" />
+			<img src="https://picsum.photos/200/400?image=13" />
+		</div>
+		<script src="./dist/gallery.min.js"></script>
+		<script type="text/javascript">
+			const gallery = new Gallery('#gallery');
+			const img = new Image();
+			img.src = 'https://picsum.photos/200/400?image=14';
+			setTimeout(function() {
+				document.querySelector('.gallery__lens')
+					.appendChild(img);
+			}, 5000);
+		</script>
+	</body>
+</html>

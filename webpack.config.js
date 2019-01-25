@@ -1,15 +1,21 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
-  mode: 'production',
+	mode: 'development',
+	optimization: {
+		usedExports: true,
+	},
+  entry: './src/gallery.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'gallery.min.js',
+    path: path.resolve(__dirname, 'dist'),
+    library: 'Gallery',
+    libraryTarget: 'var',
+    libraryExport: 'default',
   },
 	module: {
 		rules: [
-			// SCSS/CSS Configurations
+			// SCSS/CSS configuration
 		  {
 		    test: /\.scss$/,
 		    use: [
@@ -30,13 +36,19 @@ module.exports = {
           },
 		    ],
 		  },
-		  // Babel configuration
+		  // BABEL/ESLINT configuration
 		  {
 		  	test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
         use: [
         	'babel-loader',
-        	'eslint-loader',
+        	{
+        		loader: 'eslint-loader',
+        		options: {
+        			fix: true,
+        			failOnError: true,
+        		},
+        	},
 	      ],
 		  },
 		],
