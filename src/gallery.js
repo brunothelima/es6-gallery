@@ -1,5 +1,4 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
-// import './gallery.scss';
 
 /*
 	Gallery Component;
@@ -14,11 +13,11 @@ export default class {
 		this._curr = 0; // Current visible item index 
 		this._items = []; // Itens to display iterable
 		this._bullets; // Will become gallery__index iterable
+		this.$element = {}; // Target element
 		this.$lens; // Will become gallery__lens element reference
 		this.$controlls; // Will become gallery__controlls element reference
 		this.$prev; // Will become gallery__prev element reference
 		this.$next; // Will become gallery__next reference
-		this.$element = {}; // Target element
 		this.init(target);
 	}
 	/*
