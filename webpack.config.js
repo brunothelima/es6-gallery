@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	mode: 'development',
+	mode: 'production',
 	optimization: {
 		usedExports: true,
 	},
@@ -30,8 +30,10 @@ module.exports = {
           { 
           	loader: 'sass-loader', 
           	options: { 
-          		outputStyle: 'compressed',
-							sourceMap: true,
+              file: './src/style.scss',
+              outFile: './src/style.css',
+              outputStyle: 'compressed',
+              sourceMap: true,
           	},
           },
 		    ],
@@ -46,7 +48,7 @@ module.exports = {
         		loader: 'eslint-loader',
         		options: {
         			fix: true,
-        			failOnError: true,
+        			failOnError: false,
         		},
         	},
 	      ],

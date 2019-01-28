@@ -106,9 +106,9 @@ export default class {
 	renderLens() {	
 		// Remove the current rendered gallery__lens element
 		if (this.$lens) this.$lens.remove();
-		// Insert gallery__lens html into the component
 
-		const html = `
+		// Insert gallery__lens html into the component
+		this.$element.insertAdjacentHTML('afterbegin', `
 			<div class="gallery__lens">
 				${this._items.map(item => {  
 					/*
@@ -118,9 +118,7 @@ export default class {
 					const html = (item.className.includes('gallery__item')) ? item.innerHTML : item.outerHTML;
 					return `<div class="gallery__item">${html}</div>`;
 				}).join('')}
-			</div>`;
-
-		this.$element.insertAdjacentHTML('afterbegin', html);
+			</div>`);
 		// Set _lens reference to the new rendered gallery__lens
 		this.$lens = document.querySelector('.gallery__lens');
 		// Set _items as new gallery__items rendered
