@@ -1,5 +1,5 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const envMode = 'development';
 const path = require('path');
 const libraryName = 'Gallery'; 
@@ -15,18 +15,18 @@ module.exports = {
     libraryTarget: 'var',
     libraryExport: 'default',
   },
-  devServer: {
- 		contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-  	port: '9000',
-  },
+  // devServer: {
+ 	// 	contentBase: path.join(__dirname, 'dist'),
+  //   compress: true,
+  // 	port: '9000',
+  // },
   plugins: [
 		// new MiniCssExtractPlugin({
 		// 	filename: `${libraryFileName}.css`,
 		// }),
-		new HtmlWebpackPlugin({
-			template: './src/example.html',
-		}),
+		// new HtmlWebpackPlugin({
+		// 	template: './src/example.html',
+		// }),
   ],
 	module: {
 		rules: [

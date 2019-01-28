@@ -1,36 +1,36 @@
-.gallery {
-	overflow: hidden;
-	&__lens {
-		display: flex;	
-		align-items: center;
-		justify-content: center;
-	}
-	&__item {
-		display: none;
-		align-items: center;
-		justify-content: center;
-		&--active {
-			display: flex;	
-			width: 100%;
-			opacity: 0;
-			animation: item 150ms ease-out forwards;
-		}
-	}
-	&__controlls {
-		box-sizing: border-box;
-		padding: 16px;
-		text-align: center;
-	}
-	&__index {
-		&--active {
-			opacity: 0.2;
-		}
-	}
-}
-@keyframes item {
-	from {
-		opacity: 0;
-	} to {
-		opacity: 1;
-	}
-}
+// .gallery {
+// 	overflow: hidden;
+// 	&__lens {
+// 		display: flex;	
+// 		align-items: center;
+// 		justify-content: center;
+// 	}
+// 	&__item {
+// 		display: none;
+// 		align-items: center;
+// 		justify-content: center;
+// 		&--active {
+// 			display: flex;	
+// 			width: 100%;
+// 			opacity: 0;
+// 			animation: item 150ms ease-out forwards;
+// 		}
+// 	}
+// 	&__controlls {
+// 		box-sizing: border-box;
+// 		padding: 16px;
+// 		text-align: center;
+// 	}
+// 	&__index {
+// 		&--active {
+// 			opacity: 0.2;
+// 		}
+// 	}
+// }
+// @keyframes item {
+// 	from {
+// 		opacity: 0;
+// 	} to {
+// 		opacity: 1;
+// 	}
+// }

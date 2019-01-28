@@ -204,7 +204,7 @@ export default class {
 	*/
 	render() {		
 		try {
-		// Checks if there is child elements for the gallery initialization
+			// Checks if there is child elements for the gallery initialization
 			if (!this._items.length) {
 				throw `No child elements found on gallery instace $target.`;
 			}
@@ -228,7 +228,7 @@ export default class {
 			this.$element.removeChild(this.$element.firstChild);
 		}
 		// Adds style and activation classes to the component
-		this.$element.classList.add('gallery','gallery--active');
+		// this.$element.classList.add('gallery','gallery--active');
 		// Transfers the child components to gallery__lens wrapper
 		this.render();
 	}
