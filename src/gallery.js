@@ -1,4 +1,6 @@
-import './style.scss';
+/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+// import './gallery.scss';
+
 /*
 	Gallery Component;
 	Creates an slider of elements with pagination and controlls
@@ -16,8 +18,8 @@ export default class {
 		this.$controlls; // Will become gallery__controlls element reference
 		this.$prev; // Will become gallery__prev element reference
 		this.$next; // Will become gallery__next reference
-		this.$element = this.extractElement(target);
-		this.init();
+		this.$element = {}; // Target element
+		this.init(target);
 	}
 	/*
 		Validate the existence of the element and
@@ -33,15 +35,14 @@ export default class {
 					return document.querySelector(target);
 				} else {
 					// Throw error if the selector match is undefined
-					throw new Error(`The selector '${target}' has no element match.`);
+					throw `The selector '${target}' has no element match.`;
 				}
 			} else {
-				throw new Error('Invalid initialization selector/element');
+				throw 'Invalid initialization selector/element';
 			}
 		} catch(error) {
-			alert(error);
+			throw new Error(error);
 		}
-		return undefined;
 	}
 	/*
 		Getter for total items entries
@@ -60,14 +61,14 @@ export default class {
 			Remove active class from all items
 			Then adds active class to the current item to be displayed
 		*/
-		this._items.map(item => item.classList.remove('gallery__item--active'));
-		this._items[this._curr].classList.add('gallery__item--active');
+		this._items.map(item => item.style.display = 'none');
+		this._items[this._curr].style.display = 'block';
 		/* 
 			Remove active class from all bullets
 			Then adds active class to the current bullet to be hightlighted
 		*/
-		this._bullets.map(item => item.classList.remove('gallery__index--active'));
-		this._bullets[this._curr].classList.add('gallery__index--active');
+		this._bullets.map(item => item.disabled = false);
+		this._bullets[this._curr].disabled = true;
 	}
 	/*
 		Set the previews element to be displayed
@@ -78,7 +79,7 @@ export default class {
 			Iterates over _curr
 			Returns last _item index if _curr was the first item availble
 		*/
-		this.currentIndex = (this._curr <= 0) ? this.total - 1 : this._curr - 1;
+		this.currentIndex = this._curr <= 0 ? this.total - 1 : this._curr - 1;
 	}
 	/*
 		Set the selected element to be displayed
@@ -96,7 +97,23 @@ export default class {
 			Iterates over _curr
 			Returns first _item index if _curr was the last item availble
 		*/
-		this.currentIndex = (this._curr >= (this.total - 1)) ? 0 : this._curr + 1;
+		this.currentIndex = this._curr >= (this.total - 1) ? 0 : this._curr + 1;
+	}
+	// Insert new elements to the $lens element
+	insert(elements=[]) {
+		try {
+			// Grants that elements is an arrayh
+			elements = (!Array.isArray(elements)) ? [elements] : elements;
+			if (!elements.every(element => element instanceof HTMLElement)) {
+				throw 'The arguments passed for insert(elements) must be an HTMLElement object/list';
+			}
+			// Append each element passed as argument to the $lens element
+			for(const element of elements) {
+				this.$lens.appendChild(element);
+			}
+		} catch(error) {
+			throw new Error(error);
+		}
 	}
 	/*
 		Render gallery__lens element into the component;
@@ -137,7 +154,7 @@ export default class {
 		this.$element.insertAdjacentHTML('beforeend', `
 			<div class="gallery__controlls">
 				<button class="gallery__prev">Prev</button>
-				${this._items.map((item, index) => { // Iteration over _items, render each item correspondent bullet gallery__index
+				${this._items.map((item, index) => { // Iteration over _items, renders bullets relative to gallery__index indexes
 					return `<button class="gallery__index">${index+1}</button>`;
 				}).join('')}
 				<button class="gallery__next">Next</button>
@@ -186,21 +203,32 @@ export default class {
 		Updates the component html
 	*/
 	render() {		
-		this.renderLens(); // Render $lens element
-		this.renderControlls(); // Render $controlls element
+		try {
+		// Checks if there is child elements for the gallery initialization
+			if (!this._items.length) {
+				throw `No child elements found on gallery instace $target.`;
+			}
+			this.renderLens(); // Render $lens element
+			this.renderControlls(); // Render $controlls element
+		} catch(error) {
+			throw new Error(error);
+		}
 	}
 	/*
 		Initializes _items
 		Render $lens and controlls 
 	*/
-	init() {
-		// Adds style and activation classes to the component
-		this.$element.classList.add('gallery','gallery--active');
-		// Set _items as iterable of elements in the component target element
-		this._items = Array.from(this.$element.children);
+	init(target) {
+		// Extracts element target form reference or selector passed as argument o new Gallery()
+		this.$element = this.extractElement(target);
+		// Set _items with the inital child elements of target
+		this._items = [...this.$element.children] || [];
+		// Remove all childs from target after assign then to _items
 		while(this.$element.firstChild) {
 			this.$element.removeChild(this.$element.firstChild);
 		}
+		// Adds style and activation classes to the component
+		this.$element.classList.add('gallery','gallery--active');
 		// Transfers the child components to gallery__lens wrapper
 		this.render();
 	}

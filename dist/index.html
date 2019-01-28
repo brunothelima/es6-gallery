@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<title>ES6 - Gallery</title>
-	</head>
+	<link href="gallery.css" rel="stylesheet"></head>
 	<body>
 		<div id="gallery">
 			<img src="https://picsum.photos/600/300?image=10" />
@@ -12,15 +12,15 @@
 			<img src="https://picsum.photos/400/400?image=12" />
 			<img src="https://picsum.photos/200/400?image=13" />
 		</div>
-		<script src="./dist/gallery.min.js"></script>
 		<script type="text/javascript">
-			const gallery = new Gallery('#gallery');
-			const img = new Image();
-			img.src = 'https://picsum.photos/200/400?image=14';
-			setTimeout(function() {
-				document.querySelector('.gallery__lens')
-					.appendChild(img);
-			}, 5000);
+			document.addEventListener("DOMContentLoaded", function(event) { 
+				const gallery = new Gallery('#gallery');
+				const img = new Image();
+				img.src = 'https://picsum.photos/400/400?image=14';
+				setTimeout(function() {
+					gallery.next();
+				}, 5000);
+			});
 		</script>
-	</body>
+	<script type="text/javascript" src="gallery.js"></script></body>
 </html>
