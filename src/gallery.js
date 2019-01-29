@@ -105,7 +105,10 @@ export default class {
 			if (!elements.every(element => element instanceof HTMLElement)) {
 				throw 'The arguments passed for insert(elements) must be an HTMLElement object/list';
 			}
-			// Append each element passed as argument to the $list element
+			/*
+				Append each element passed as argument to the $list element
+				Which triggers the mutation observer on the $list element
+			*/
 			for(const element of elements) {
 				this.$list.appendChild(element);
 			}
