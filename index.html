@@ -1,0 +1,18 @@
+<html>
+	<head></head>
+	<body>
+		<div id="gallery">
+			<img src="http://picsum.photos/400/400?image=1" alt="">
+			<img src="http://picsum.photos/400/400?image=2" alt="">
+			<img src="http://picsum.photos/400/400?image=3" alt="">
+			<img src="http://picsum.photos/400/400?image=4" alt="">
+		</div>
+		<script type="module">
+			import Gallery from './src/gallery.js';
+			const gallery = new Gallery('#gallery');
+			// setTimeout(function() {
+			// 	gallery.insert(document.createElement('div'));
+			// }, 5000);
+		</script>
+	</body>
+</html>
