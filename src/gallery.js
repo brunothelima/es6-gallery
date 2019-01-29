@@ -40,7 +40,7 @@ export default class {
 		this._current = 0; // currentent visible item index 
 		this._buttons; // Will become gallery__index iterable
 		this._items = [...this.$element.children] || []; // Itens to display iterable
-		this.render();
+		this.build();
 	}
 	/*
 		Getter for total items entries
@@ -98,7 +98,7 @@ export default class {
 		this.current = this._current >= (this.total - 1) ? 0 : this._current + 1;
 	}
 	// Insert new elements to the $list element
-	insert(elements=[]) {
+	add(elements=[]) {
 		try {
 			// Grants that elements is an arrayh
 			elements = (!Array.isArray(elements)) ? [elements] : elements;
@@ -121,7 +121,7 @@ export default class {
 		Update $list reference
 		Update _items elements list
 	*/
-	renderList() {	
+	buildList() {	
 		// Insert gallery__list html into the component
 		this.$element.insertAdjacentHTML('afterbegin', `
 			<div class="gallery__list">
@@ -162,7 +162,7 @@ export default class {
 		Update controll elements reference ($ctrls, _buttons, $next, $prev)
 		Set observer for any changes on gallery__list content
 	*/
-	renderCtrls() {
+	buildCtrls() {
 		// Insert gallery__list html into the component
 		this.$element.insertAdjacentHTML('beforeend', `
 			<div class="gallery__ctrls">
@@ -202,7 +202,7 @@ export default class {
 	/*
 		Updates the component html
 	*/
-	render() {
+	build() {
 		try {
 			// Checks if there is child elements for the gallery initialization
 			if (!this._items.length) {
@@ -214,8 +214,8 @@ export default class {
 				Render List wrapper and ctrls.
 				Must be in this order to work properly
 			*/
-			this.renderList(); // Render $list element
-			this.renderCtrls(); // Render $ctrls element
+			this.buildList(); // Render $list element
+			this.buildCtrls(); // Render $ctrls element
 		} catch(error) {
 			throw new Error(error);
 		}
