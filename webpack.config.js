@@ -1,6 +1,6 @@
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
-const envMode = 'development';
+const envMode = 'production';
 const path = require('path');
 const libraryName = 'Gallery'; 
 const libraryFileName = libraryName.toLowerCase();
