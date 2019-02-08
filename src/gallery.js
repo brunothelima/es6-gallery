@@ -6,14 +6,13 @@ export default class {
     this.el = el;    
     this.items = [...this.el.children].map(child => this.el.removeChild(child));;
   	this.view = new GalleryView(this.el, this.items);
-    this.controlls = new GalleryControll(this.el, this.items.length);
+    this.controlls = new GalleryControll(this.items.length);
+    this.el.appendChild(this.controlls);
     this.current = 0;
     this.init();
   }
   set current(index) {
-  	this.index = index;
-  	this.view.update(index);
-  	// this.controlls.update(index);
+    this.index = index;
   }
   get current() {
   	return this.index || 0;
@@ -22,13 +21,13 @@ export default class {
   	return this.items.length;
   }
   init() {
-  	this.controlls.el.addEventListener('prev', _ => {
+  	this.controlls.addEventListener('prev', _ => {
   		this.current = this.index <= 0 ? this.total - 1 : this.index - 1;
   	});
-  	this.controlls.el.addEventListener('goTo', e => {
+  	this.controlls.addEventListener('goTo', e => {
   		this.current = e.detail.current;
   	});
-  	this.controlls.el.addEventListener('next', _ => {
+  	this.controlls.addEventListener('next', _ => {
   		this.current = this.index >= (this.total - 1) ? 0 : this.index + 1;
   	});
   }

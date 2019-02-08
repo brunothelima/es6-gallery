@@ -1,56 +1,79 @@
-/**
- * Gallery prev button factory
- * @return {HTMLButtonElement} button
-**/
-function GalleryPrevButton() {
-  const button = document.createElement('button');
-  button.textContent = 'Previews';
-  return button;
-}
-function GalleryNavigation(range=0) {
-  const nav = document.createElement('nav');
-  for(let i = 1; i <= range; i++){
-    const button = document.createElement('button');
-    button.textContent = i;
-    nav.appendChild(button);
+'use strict';
+class GalleryPrevButton {
+  constructor() {
+    this._el = document.createElement('button');
+    this._el.textContent = 'Previews';
+    this._el.className = 'Gallery__prev';
+    return this._el;
   }
-  return nav;
 }
-function GalleryNextButton() {
-  const button = document.createElement('button');
-  button.textContent = 'Next';
-  return button;
+class GalleryNextButton {
+  constructor() {
+    this._el = document.createElement('button');
+    this._el.textContent = 'Next';
+    this._el.className = 'Gallery__next';
+    return this._el;
+  }
+}
+class GalleryNavigation {
+  constructor(range=0) {
+    this._el = document.createElement('nav');
+    this._el.className = 'Gallery__nav';
+    for(let i = 1; i <= range; i++){ 
+      const button = document.createElement('button');
+      button.textContent = i;
+      button.className = 'Gallery__index';
+      this._el.appendChild(button);
+    }
+    return this._el;
+  }
 }
 export default class {
-  constructor(parent, range) {
-    this.parent = parent;
-    this.el = document.createElement('div');
-    this.prevButton = GalleryPrevButton();
-    this.navigation = GalleryNavigation(range);
-    this.nextButton = GalleryNextButton();
+  constructor(range=0) {
+    this._el = document.createElement('div');
+    this._nav = new GalleryNavigation(range);
+    this._prevButton = new GalleryPrevButton();
+    this._nextButton = new GalleryNextButton(); 
+    this._navButtons = [...this._nav.children];
     this.init();
+    return this._el;
   }
-  onPrev(event) {
-    this.el.dispatchEvent(new CustomEvent('next'));
+  set _active(target) {
+    for(const button of this._navButtons.values()) {
+      button.disabled = (button === target);
+    }
   }
-  goTo(event) {
-    this.el.dispatchEvent(new CustomEvent('goTo', {
-      detail: { current: index },
+  get _active() {
+    return this._navButtons.find(button => !!button.disabled);
+  }
+  onPrev() {
+    this._active = this._active.previousElementSibling || this._nav.lastElementChild;
+    this._el.dispatchEvent(new CustomEvent('prev', {
+      detail: {current: this._navButtons.indexOf(this.active)},
     }));
   }
-  onNext(event) {
-    this.el.dispatchEvent(new CustomEvent('next'));
+  goTo(target) {
+    this._active = target;
+    this._el.dispatchEvent(new CustomEvent('goTo', {
+      detail: {current: this._navButtons.indexOf(target)},
+    }));
+  }
+  onNext() {
+    this._active = this._active.nextElementSibling || this._nav.firstElementChild;
+    this._el.dispatchEvent(new CustomEvent('next', {
+      detail: {current: this._navButtons.indexOf(this.active)},
+    }));
   }
   init() {
-    this.prevButton.addEventListener('click', e => this.onPrev(e));
-    this.nextButton.addEventListener('click', e => this.onNext(e));
-    [...this.navigation.children].map((bullet, index) => {
-      bullet.addEventListener('click', e => this.goTo(e));
+    this._prevButton.addEventListener('click', _ => this.onPrev());
+    this._nextButton.addEventListener('click', _ => this.onNext());
+    this._navButtons.map(child => {
+      child.addEventListener('click', e => this.goTo(e.target));
     });
-  	this.el.appendChild(this.prevButton);
-    this.el.appendChild(this.navigation);
-    this.el.appendChild(this.nextButton);
-    this.parent.appendChild(this.el);
-    this.update();
+    this._el.appendChild(this._nextButton);
+    this._el.appendChild(this._nav);
+    this._el.appendChild(this._prevButton);
+    this._el.className = 'Gallery__controlls';
+    this._active = this._nav.firstElementChild;
   }
 }
