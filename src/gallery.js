@@ -1,5 +1,5 @@
 import GalleryView from './GalleryView.js';
-import GalleryControll from './GalleryControll.js';
+import {GalleryControll} from './GalleryControll.js';
 
 export default class {
   constructor(el) {

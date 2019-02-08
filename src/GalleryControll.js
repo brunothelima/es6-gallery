@@ -1,4 +1,3 @@
-'use strict';
 class GalleryPrevButton {
   constructor() {
     this._el = document.createElement('button');
@@ -15,23 +14,29 @@ class GalleryNextButton {
     return this._el;
   }
 }
+class GalleryNavButton {
+  constructor(index=0) {
+    this._el = document.createElement('button');
+    this._el.textContent = index;
+    this._el.className = 'Gallery__index';
+    return this._el;
+  }
+}
 class GalleryNavigation {
-  constructor(range=0) {
+  constructor(counter=0) {
     this._el = document.createElement('nav');
     this._el.className = 'Gallery__nav';
-    for(let i = 1; i <= range; i++){ 
-      const button = document.createElement('button');
-      button.textContent = i;
-      button.className = 'Gallery__index';
+    for(let i = 1; i <= counter; i++){ 
+      const button = new GalleryNavButton(i);
       this._el.appendChild(button);
     }
     return this._el;
   }
 }
-export default class {
-  constructor(range=0) {
+export class GalleryControll {
+  constructor(counter=0) {
     this._el = document.createElement('div');
-    this._nav = new GalleryNavigation(range);
+    this._nav = new GalleryNavigation(counter);
     this._prevButton = new GalleryPrevButton();
     this._nextButton = new GalleryNextButton(); 
     this._navButtons = [...this._nav.children];
@@ -67,9 +72,7 @@ export default class {
   init() {
     this._prevButton.addEventListener('click', _ => this.onPrev());
     this._nextButton.addEventListener('click', _ => this.onNext());
-    this._navButtons.map(child => {
-      child.addEventListener('click', e => this.goTo(e.target));
-    });
+    this._navButtons.map(btn => btn.addEventListener('click', e => this.goTo(e.target)));
     this._el.appendChild(this._nextButton);
     this._el.appendChild(this._nav);
     this._el.appendChild(this._prevButton);
