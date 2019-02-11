@@ -1,27 +1,36 @@
-function GalleryViewItem(item, selected=false) {
-  const li = document.createElement('li');
-  li.style.display = (selected) ? 'none' : 'block';
+/** 
+ * Factory for GalleryPrevButton elements
+ * @private
+ * @param {HTMLElement} item - element to be wrapped
+ * @return {HTMLLiElement} The created wrapper li element
+ */
+const createViewItem = item => {
+	const li = document.createElement('li');
+	li.className = 'Gallery__item';
 	li.appendChild(item);
 	return li;	
-}
-export default class {
-  constructor(parent, items) {
-    this.parent = parent;
-    this.items = items;
-    this.el = document.createElement('ul');
-    this.init();
-  }
-  update(selected) {
-  	for(const index of this.items.keys()) {
-			const display = (index !== selected) ? 'none' : 'block';
-			this.el.children[index].style.display = display;
+};
+/** 
+ * GalleryView component class
+ * @return {HTMLUListElement}
+*/
+export class GalleryView {
+	/** 
+	 * @param {Array} items - List of items to be displayed in the gallery view
+	*/
+	constructor(items=[]) {
+		this.view = document.createElement('ul');
+		this.items = items;
+		this.init();
+		return this.view;
+	}
+	init() {
+		this.view.className = 'Gallery__view';
+		for(let [index, item] of this.items.entries()) {
+			const li = createViewItem(item);
+			li.style.display = (index === 0) ? 'block' : 'none';
+			this.view.appendChild(li);
 		}
-  }
-  init() {
-  	for(let [index, item] of this.items.entries()) {
-  		const selected = (index > 0) ? true : false;
-  		this.el.appendChild(GalleryViewItem(item, selected));
-  	}
-  	this.parent.appendChild(this.el);
-  }
+	}
 }
+	

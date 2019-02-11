@@ -1,5 +1,6 @@
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
+const JsDocPlugin = require('jsdoc-webpack-plugin-v4');
 const envMode = 'production';
 const path = require('path');
 const libraryName = 'Gallery'; 
@@ -7,27 +8,31 @@ const libraryFileName = libraryName.toLowerCase();
 
 module.exports = {
 	mode: envMode,
-  entry: `./src/${libraryFileName}.js`,
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: `${libraryFileName}.min.js`,
-    library: libraryName,
-    libraryTarget: 'var',
-    libraryExport: 'default',
-  },
-  // devServer: {
- 	// 	contentBase: path.join(__dirname, 'dist'),
-  //   compress: true,
-  // 	port: '9000',
-  // },
-  plugins: [
+	entry: `./src/${libraryFileName}.js`,
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: `${libraryFileName}.min.js`,
+		library: libraryName,
+		libraryTarget: 'var',
+		libraryExport: 'default',
+	},
+	// devServer: {
+	// 	contentBase: path.join(__dirname, 'dist'),
+	//	 compress: true,
+	// 	port: '9000',
+	// },
+	plugins: [
+		new JsDocPlugin({
+			conf: path.join(__dirname, 'jsdoc.json'),
+		}),
 		// new MiniCssExtractPlugin({
 		// 	filename: `${libraryFileName}.css`,
 		// }),
 		// new HtmlWebpackPlugin({
 		// 	template: './src/example.html',
 		// }),
-  ],
+		
+	],
 	module: {
 		rules: [
 			// SCSS/CSS configuration
@@ -39,15 +44,15 @@ module.exports = {
 			// 		{ loader: 'sass-loader', options: { sourceMap: true } },
 			// 	],
 			// },
-		  // BABEL/ESLINT configuration
-		  {
-		  	test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-        	'babel-loader',
-        	{ loader: 'eslint-loader', options: { fix: true, }, },
-	      ],
-		  },
+			// BABEL/ESLINT configuration
+			{
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: [
+					'babel-loader',
+					// { loader: 'eslint-loader', options: { fix: true, }, },
+				],
+			},
 		],
 	}
 };
