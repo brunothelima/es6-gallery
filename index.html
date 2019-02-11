@@ -1,22 +1,25 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<style>
-			ul {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-			}
-		</style>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Gallery Component</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+		<link rel="stylesheet" href="./dist/gallery.min.css">
+		<style>ul{margin:0;padding:0;list-style:none;}</style>
 	</head>
 	<body>
-			<div id="gallery">
-				<img src="http://picsum.photos/300/300?image=1" />
-				<img src="http://picsum.photos/300/300?image=2" />
-				<img src="http://picsum.photos/300/300?image=3" />
-			</div>
-			<script type="module">
-				import { Gallery } from './src/Gallery.js';
-				const MyGallery = new Gallery(document.getElementById('gallery'));
-			</script>
+		<div id="gallery">
+			<img src="http://picsum.photos/300/300?image=11" />
+			<img src="http://picsum.photos/300/300?image=12" />
+			<img src="http://picsum.photos/300/300?image=13" />
+			<img src="http://picsum.photos/300/300?image=14" />
+			<img src="http://picsum.photos/300/300?image=15" />
+		</div>
+		<script src="./dist/gallery.min.js"></script>
+		<script type="module">
+			// import Gallery from './src/Gallery.js';
+			const MyGallery = new Gallery(document.getElementById('gallery'));
+		</script>
 	</body>
 </html>

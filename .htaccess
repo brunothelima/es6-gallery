@@ -1,0 +1,5 @@
+<IfModule mod_filter.c>
+	AddOutputFilterByType DEFLATE "application/javascript" \
+                                "text/css" \
+                                "text/html" \
+</IfModule>
