@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack-dev-server",
     "build": "webpack",
-    "docs": "jsdoc ./src/*.js -d docs"
+    "docs": "docma -s ./src/*.js -d docs -t zebra"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
+    "docma": "^3.2.2",
     "eslint": "^5.12.1",
     "eslint-loader": "^2.1.1",
     "mini-css-extract-plugin": "^0.5.0",
