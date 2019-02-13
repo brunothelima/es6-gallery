@@ -12,7 +12,7 @@ module.exports = {
 		filename: `${libraryFileName}.min.js`,
 		library: libraryName,
 		libraryTarget: 'var',
-		libraryExport: 'default',
+		libraryExport: libraryName,
 	},
 	plugins: [
 		new MiniCssExtractPlugin({

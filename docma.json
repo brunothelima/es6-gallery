@@ -1,5 +1,62 @@
 {
+	"jsdoc": {
+		"encoding": "utf8",
+		"hierarchy": true,
+		"sort": "grouped",
+		"relativePath": null,
+		"exclude": ["webpack.config.js"],
+		"plugins": []
+	},
+	"markdown": {
+		"gfm": true,
+		"tables": true,
+		"breaks": true,
+		"pedantic": true,
+		"sanitize": true,
+		"smartLists": true,
+		"smartypants": true,
+		"xhtml": true,
+		"tasks": true,
+		"emoji": true
+	},
 	"app": {
-			"base": "/es6-gallery/docs/"
+		"title": "Gallery Documentation",
+		"base": "/es6-gallery/docs/"
+	},
+	"template": {
+		"options": {
+			"title": {
+				"label": "GDGallery",
+				"href": "."
+			},
+			"sidebar": {
+				"enabled": true,
+				"outline": "tree",
+				"collapsed": false,
+				"toolbar": true,
+				"itemsFolded": true,
+				"itemsOverflow": "crop",
+				"badges": true,
+				"search": true,
+				"animations": true
+			},
+			"symbols": {
+				"autoLink": true,
+				"params": "list",
+				"enums": "list",
+				"props": "list",
+				"meta": true
+			},
+			"contentView": {
+				"bookmarks": "h2,h3,h4",
+				"faLibs": "all"
+			},
+			"navbar": {
+				"enabled": true,
+				"fixed": true,
+				"dark": true,
+				"animations": true
+			}
+		}
 	}
 }
