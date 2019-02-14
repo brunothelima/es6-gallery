@@ -36,7 +36,7 @@ export class GalleryControll {
 		for (const [key, button] of this.navButtons.entries()) {
 			button.disabled = (key === index);
 		}
-		GE.dispatch(this.el, 'change', { current: this.current });
+		GE.emmit(this.el, 'change', { current: this.current });
 	}
 	/**  
 	 * Get The current disabled button element reference in `navButtons` array
@@ -54,7 +54,6 @@ export class GalleryControll {
 	prev() {
 		const prev = this.disabled.previousElementSibling || this.nav.lastElementChild;
 		this.current = this.navButtons.indexOf(prev);
-		GE.dispatch(this.el, 'prev', { current: this.current });
 	}
 	/** 
 	 * Set `current` as the next button previous element index
@@ -64,23 +63,6 @@ export class GalleryControll {
 	next() {
 		const next = this.disabled.nextElementSibling || this.nav.firstElementChild;
 		this.current = this.navButtons.indexOf(next);
-		GE.dispatch(this.el, 'next', { current: this.current });
-	}
-	/** 
-	 * Sets a custom listener to the controlls main element
-	 * @param {String} event - Name of the event to be listen
-	 * @param {Function} callback - Callback function for the listener
-	 * @example 
-	 *   // First, we create a new instance of `GalleryControll`
-	 *   const controlls = new GalleryControll(range);
-	 *   // Then we bind the event listener to the `controlls` instance
-	 *   controlls.on('next', e => {
-	 *     // Set `current` as the index passd as argument
-	 *     const current = e.detail.next; 
-	 *   });
-	*/
-	on(event=undefined, callback=undefined) {
-		this.el.addEventListener(event, e => callback(e));
 	}
 	/** 
 	 * Bind listeners to each of the navigation button elements
@@ -88,9 +70,9 @@ export class GalleryControll {
 	*/
 	init() {
 		// Binding navigation buttons listeners to their callbacks
-		this.prevButton.addEventListener('click', () => this.prev());
-		this.nextButton.addEventListener('click', () => this.next());
-		this.navButtons.map(btn => btn.addEventListener('click', e => {
+		GE.watch(this.prevButton, 'click', () => this.prev());
+		GE.watch(this.nextButton, 'click', () => this.next());
+		this.navButtons.map(btn => GE.watch(btn, 'click', e => {
 			this.current = this.navButtons.indexOf(e.target);
 		}));
 		// Appending navigation buttons to the main element

@@ -6,7 +6,7 @@
 		<title>Gallery Component</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 		<link rel="stylesheet" href="./dist/gallery.min.css">
-		<style>ul{margin:0;padding:0;list-style:none;}</style>
+		<style>ul{margin:0;padding:0;list-style:none;}img{pointer-events: none;}</style>
 	</head>
 	<body>
 		<div id="gallery">
@@ -16,9 +16,9 @@
 			<img src="http://picsum.photos/300/300?image=14" />
 			<img src="http://picsum.photos/300/300?image=15" />
 		</div>
-		<script src="./dist/gallery.min.js"></script>
+		<!-- <script src="./dist/gallery.min.js"></script> -->
 		<script type="module">
-			// import Gallery from './src/Gallery.js';
+			import { Gallery } from './src/Gallery.js';
 			const MyGallery = new Gallery(document.getElementById('gallery'));
 		</script>
 	</body>

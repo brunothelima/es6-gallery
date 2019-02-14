@@ -1,4 +1,6 @@
+
 import { GalleryFactory as GF } from './GalleryFactory.js';
+// import { GalleryEvents as GE } from './GalleryEvents.js';
 
 /** 
  * Builder class for the `Gallery` component items list.
