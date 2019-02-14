@@ -1,0 +1,21 @@
+{
+  "name": "docma-template-gallery",
+  "version": "1.0.0",
+  "description": "Gallery component JSDocument",
+  "repository": "https://github.com/brunothelima/es6-gallery",
+  "license": "MIT",
+  "author": "Bruno Lima <brunothelima@gmail.com>",
+  "main": "index.js",
+  "files": [
+    "template/",
+    "index.js",
+    "LICENSE"
+  ],
+  "keywords": [
+    "docma",
+    "template"
+  ],
+  "peerDependencies": {
+    "docma": ">=2.0.0"
+  }
+}

@@ -4,7 +4,9 @@
 		"hierarchy": true,
 		"sort": "grouped",
 		"relativePath": null,
-		"exclude": ["webpack.config.js"],
+		"exclude": [
+			"webpack.config.js"
+		],
 		"plugins": []
 	},
 	"markdown": {
@@ -21,9 +23,10 @@
 	},
 	"app": {
 		"title": "Gallery Documentation",
-		"base": "/es6-gallery/docs/"
+		"base": "/es6-gallery/docs/dist"
 	},
 	"template": {
+		"path": "./docs/",
 		"options": {
 			"title": {
 				"label": "GDGallery",
@@ -55,7 +58,13 @@
 				"enabled": true,
 				"fixed": true,
 				"dark": true,
-				"animations": true
+				"animations": true,
+				"menu": [
+					{
+						"label": "Demo",
+						"href": "/es6-gallery/"
+					}
+				]
 			}
 		}
 	}

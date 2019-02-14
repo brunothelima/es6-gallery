@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack-dev-server",
     "build": "webpack",
-    "docs": "docma -s ./src/*.js -d docs -t zebra"
+    "docs": "docma -s ./src/*.js -d docs/dist"
   },
   "repository": {
     "type": "git",
