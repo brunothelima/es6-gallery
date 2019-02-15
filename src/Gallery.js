@@ -4,8 +4,8 @@
  * @version 0.1.0;
  */
 // import './Gallery.scss';
-import { GalleryView as GV } from './GalleryView.js';
-import { GalleryControll as GC } from './GalleryControll.js';
+import { GalleryView } from './GalleryView.js';
+import { GalleryControll } from './GalleryControll.js';
 import { GalleryEvents as GE } from './GalleryEvents.js';
 
 /**
@@ -21,8 +21,8 @@ export class Gallery {
 	constructor(target) {
 		this.el = target;
 		this.items = [...this.el.children];
-		this.view = new GV(this.items);
-		this.ctrl = new GC(this.items.length);
+		this.view = new GalleryView(this.items);
+		this.ctrl = new GalleryControll(this.items.length);
 		this.init();
 	}
 	/**
@@ -43,6 +43,8 @@ export class Gallery {
 	initView() {
 		this.view.current = 0;
 		this.el.appendChild(this.view.el);
+		GE.watch(this.view.el, 'swipe-left', () => this.ctrl.next());
+		GE.watch(this.view.el, 'swipe-right', () => this.ctrl.prev());
 	}
 	/**
 	 * Initializes the `Gallery` component

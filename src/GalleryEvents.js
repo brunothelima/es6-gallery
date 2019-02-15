@@ -15,7 +15,7 @@ export class GalleryEvents {
 	 *  const detail = { selected: [10,20,30] };
 	 *  GE.emmit(el, 'change', detail);
 	*/
-	static emmit(target = HTMLElement, event=undefined, detail = {}) {
+	static emmit(target = HTMLElement, event = undefined, detail = {}) {
 		target.dispatchEvent(new CustomEvent(event, { detail: detail }));
 	}
 	/** 
@@ -31,7 +31,7 @@ export class GalleryEvents {
 	 *    const selected = e.detail.selected;
 	 *  });
 	*/
-	static watch(target = HTMLElement, event=undefined, callback=undefined) {
+	static watch(target = HTMLElement, event = undefined, callback = undefined) {
 		target.addEventListener(event, e => callback(e));
 	}
 }
