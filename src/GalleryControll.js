@@ -36,6 +36,7 @@ export class GalleryControll {
 		for (const [key, button] of this.navButtons.entries()) {
 			button.disabled = (key === index);
 		}
+		this.nav.style.setProperty('--tx', index - 1);
 		GE.emmit(this.el, 'change', { current: this.current });
 	}
 	/**  

@@ -9,8 +9,12 @@ export class GalleryFactory {
 	 */
 	static createPrevButton() {
 		const button = document.createElement('button');
-		button.textContent = 'Previews';
 		button.className = 'Gallery__prev';
+		button.insertAdjacentHTML('afterbegin', `
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" x="0" y="0">
+				<path d="M14.41,16l5.3-5.29a1,1,0,0,0-1.42-1.42l-6,6a1,1,0,0,0,0,1.42l6,6a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/>
+			</svg>
+		`);
 		return button;
 	}
 	/**
@@ -19,8 +23,12 @@ export class GalleryFactory {
 	 */
 	static createNextButton() {
 		const button = document.createElement('button');
-		button.textContent = 'Next';
 		button.className = 'Gallery__next';
+		button.insertAdjacentHTML('afterbegin', `
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" x="0" y="0">
+				<path d="M19.71,15.29l-6-6a1,1,0,0,0-1.42,1.42L17.59,16l-5.3,5.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l6-6A1,1,0,0,0,19.71,15.29Z"/>
+			</svg>
+		`);
 		return button;
 	}
 	/**
@@ -30,8 +38,9 @@ export class GalleryFactory {
 	 */
 	static createNavButton(index = 1) {
 		const button = document.createElement('button');
-		button.textContent = index;
-		button.className = 'Gallery__index';
+		// button.textContent = index;
+		button.classList.add('Gallery__index');
+		button.classList.add(`Gallery__index--${index}`);
 		return button;
 	}
 	/**
@@ -48,6 +57,13 @@ export class GalleryFactory {
 			nav.appendChild(button);
 		}
 		return nav;
+	}
+
+	static createCounter(count = 0) {
+		const counter = document.createElement('div');
+		counter.className = 'Gallery__counter';
+		counter.textContent = `1 / ${count}`;
+		return counter;
 	}
 	/**
 	 * Creates the controll buttons wrapper

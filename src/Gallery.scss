@@ -1,0 +1,96 @@
+.Gallery {
+  --x: 1;
+  --gutter: 16px;  
+  --base-size: 480px;
+  --bullet-size: 16px;
+  --speed: 200ms;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  max-width: var(--base-size);
+  border-radius: var(--gutter);
+  border: 1px solid #EEEEEE;
+  * {
+    box-sizing: border-box;
+    user-select: none;
+    outline: none;
+  }
+  &__counter {
+    position: absolute;
+    top: var(--gutter);
+    right: var(--gutter);
+    font-size: 0.8em;
+    padding: 2px 10px;
+    background-color: #222222;
+    color: white;
+  }
+  &__view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    height: var(--base-size);
+    padding: 0;
+    margin: 0;
+    background-color: #F6F6F6;
+    box-shadow: 0 0 calc(var(--gutter) * 2) rgba(black, 0.1) inset;
+    cursor: ew-resize;
+  }
+  &__item img {
+    display: block;
+    max-width: 100%;
+    max-height: var(--base-size);
+    object-fit: contain;
+    pointer-events: none;
+  } 
+  &__controlls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__controlls {
+    padding: var(--gutter);
+  }
+  &__prev, &__next {
+    svg {
+      display: block;
+    }
+  }
+  &__prev, &__next, &__index {
+    background: none;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+  }
+  &__nav {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: calc((var(--bullet-size) + var(--gutter)) * 3);
+    padding: var(--gutter) 0;
+  }
+  &__index {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 calc(var(--gutter) / 2);
+    transform: translateX(calc(((100% + var(--gutter)) * var(--x)) * -1));
+    transition: transform var(--speed) ease-out;
+    &:before {
+      content: '';
+      width: var(--bullet-size);
+      height: var(--bullet-size);
+      background: #AAA;
+      border-radius: 50%;
+      opacity: 0.4;
+      transition: transform var(--speed) ease-out,
+        opacity var(--speed) ease-out;
+    }
+    &[disabled]::before {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+}

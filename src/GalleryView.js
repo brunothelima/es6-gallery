@@ -11,9 +11,10 @@ export class GalleryView {
 	 * @param {HTMLElement[]} items - `Gallery` target initial child elements array
 	 */
 	constructor(items = []) {
-		this.touch = null;
 		this.el = GF.createView(items);
 		this.items = [...this.el.children];
+		this.touch = null;
+		this.threshold = 75;
 		this.init();
 	}
 	/**
@@ -33,9 +34,11 @@ export class GalleryView {
 			return;
 		}
 		const move = (e.touches) ? e.touches[0].clientX : e.clientX;
-		const swipe = ((this.touch - move) > 0) ? 'swipe-left' : 'swipe-right';
-		this.touch = null;
-		GE.emmit(this.el, swipe);
+		if((this.touch - move) > this.threshold || 
+			(this.touch - move) < -this.threshold) {
+			GE.emmit(this.el, ((this.touch - move) > 0) ? 'swipe-left' : 'swipe-right');
+			this.touch = null;
+		}
 	}
 	/**
 	 * * Search for the current  visible view item element reference
@@ -47,12 +50,12 @@ export class GalleryView {
 	 * @setter
 	 */
 	get current() {
-		const current = this.items.find(item => item.style.display === 'block');
+		const current = this.items.find(item => item.style.display != 'none');
 		return this.items.indexOf(current);
 	}
 	set current(index = 0) {
 		for (const item of this.items.values()) {
-			item.style.display = (item === this.items[index]) ? 'block' : 'none';
+			item.style.display = (item === this.items[index]) ? 'flex' : 'none';
 		}
 	}
 	/**

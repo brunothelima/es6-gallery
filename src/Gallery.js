@@ -3,10 +3,11 @@
  * @author Bruno Lima
  * @version 0.1.0;
  */
-// import './Gallery.scss';
+import './Gallery.scss';
 import { GalleryView } from './GalleryView.js';
 import { GalleryControll } from './GalleryControll.js';
 import { GalleryEvents as GE } from './GalleryEvents.js';
+import { GalleryFactory as GF } from './GalleryFactory.js';
 
 /**
  * This is the main class for the `Gallery` component. Its constructor build the 
@@ -23,6 +24,7 @@ export class Gallery {
 		this.items = [...this.el.children];
 		this.view = new GalleryView(this.items);
 		this.ctrl = new GalleryControll(this.items.length);
+		this.counter = GF.createCounter(this.items.length);
 		this.init();
 	}
 	/**
@@ -34,6 +36,7 @@ export class Gallery {
 		this.el.appendChild(this.ctrl.el);
 		GE.watch(this.ctrl.el, 'change', e => {
 			this.view.current = e.detail.current;
+			this.counter.textContent = `${e.detail.current + 1} / ${this.items.length}`;
 		});
 	}
 	/**
@@ -51,6 +54,7 @@ export class Gallery {
 	 */
 	init() {
 		this.el.classList.add('Gallery');
+		this.el.appendChild(this.counter);
 		this.initView();
 		this.initControlls();
 	}
