@@ -1,15 +1,15 @@
+$gutter: 16px;
+$base-size: 480px;
+$bullet-size: 16px;
+$speed: 200ms;
+$gray: #F6F6F6;
 .Gallery {
-  --x: 1;
-  --gutter: 16px;  
-  --base-size: 480px;
-  --bullet-size: 16px;
-  --speed: 200ms;
-  position: relative;
   overflow: hidden;
+  position: relative;
+  max-width: $base-size;
   margin: auto;
-  max-width: var(--base-size);
-  border-radius: var(--gutter);
-  border: 1px solid #EEEEEE;
+  border: 1px solid $gray; 
+  font-family: Arial, sans-serif;
   * {
     box-sizing: border-box;
     user-select: none;
@@ -17,77 +17,81 @@
   }
   &__counter {
     position: absolute;
-    top: var(--gutter);
-    right: var(--gutter);
+    top: $gutter;
+    right: $gutter;
+    padding: ($gutter / 4) ($gutter / 2);
+    background-color: black;
     font-size: 0.8em;
-    padding: 2px 10px;
-    background-color: #222222;
     color: white;
   }
   &__view {
     display: flex;
     justify-content: center;
     align-items: center;
-    list-style-type: none;
-    height: var(--base-size);
+    height: $base-size;
     padding: 0;
     margin: 0;
-    background-color: #F6F6F6;
-    box-shadow: 0 0 calc(var(--gutter) * 2) rgba(black, 0.1) inset;
+    background-color: $gray;
+    list-style-type: none;
     cursor: ew-resize;
   }
   &__item img {
     display: block;
     max-width: 100%;
-    max-height: var(--base-size);
+    max-height: $base-size;
     object-fit: contain;
     pointer-events: none;
-  } 
+  }   
   &__controlls {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  &__controlls {
-    padding: var(--gutter);
-  }
-  &__prev, &__next {
-    svg {
-      display: block;
+    padding: $gutter;
+    button {
+      padding: 0;
+      border: 0;
+      background: none;
+      &:not([disabled]) {
+        cursor: pointer;
+      }
     }
   }
-  &__prev, &__next, &__index {
-    background: none;
-    padding: 0;
-    border: 0;
-    cursor: pointer;
+  &__prev svg, 
+  &__next svg {
+    display: block;
+    path {
+      fill: darken($gray, 25%);
+    }   
   }
   &__nav {
+    --tx: 1; 
+    position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
-    width: calc((var(--bullet-size) + var(--gutter)) * 3);
-    padding: var(--gutter) 0;
+    width: calc(#{$bullet-size + $gutter} * 3);
+    padding: 4px 0;
+    margin: 0 $gutter;
+    border-radius: $gutter;
   }
   &__index {
     display: inline-flex;
     align-items: center;
-    margin: 0 calc(var(--gutter) / 2);
-    transform: translateX(calc(((100% + var(--gutter)) * var(--x)) * -1));
-    transition: transform var(--speed) ease-out;
+    margin: 0 calc(#{$gutter} / 2);
+    transition: transform #{$speed} ease-out;
+    transform: translateX(calc(((100% + #{$gutter}) * var(--tx)) * -1));
     &:before {
       content: '';
-      width: var(--bullet-size);
-      height: var(--bullet-size);
-      background: #AAA;
+      width: $bullet-size;
+      height: $bullet-size;
+      background: darken($gray, 10%);
       border-radius: 50%;
       opacity: 0.4;
-      transition: transform var(--speed) ease-out,
-        opacity var(--speed) ease-out;
+      transition: transform $speed ease-out, opacity $speed ease-out;
     }
     &[disabled]::before {
-      transform: scale(1.2);
       opacity: 1;
+      transform: scale(1.3);
     }
     &:hover::before {
       opacity: 1;
